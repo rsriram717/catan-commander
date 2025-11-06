@@ -97,12 +97,22 @@ export const NUMBER_DOTS: Record<number, number> = {
   12: 1,
 }
 
-// Resource colors (matching tailwind.config.js)
+// Resource colors - matching physical Catan board
 export const RESOURCE_COLORS: Record<ResourceType, string> = {
-  wood: '#1a5f3a',
-  brick: '#c8553d',
-  sheep: '#9fdf9f',
-  wheat: '#f4d35e',
-  ore: '#6b7280',
+  wood: '#2d5a1f', // Rich forest green
+  brick: '#b44c2e', // Reddish terracotta clay
+  sheep: '#7cb342', // Natural lime green pasture
+  wheat: '#e6b833', // Warm golden fields
+  ore: '#708090', // Slate gray mountains
+  desert: '#d4b896', // Sandy beige
+}
+
+// Secondary colors for gradients - lighter shades
+export const RESOURCE_COLORS_LIGHT: Record<ResourceType, string> = {
+  wood: '#4a7c2f',
+  brick: '#d4764e',
+  sheep: '#a5d26a',
+  wheat: '#f4d03f',
+  ore: '#9ca3af',
   desert: '#e8d4a2',
 }

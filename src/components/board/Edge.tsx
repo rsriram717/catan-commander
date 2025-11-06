@@ -8,7 +8,8 @@ interface EdgeProps {
   playerId?: number
 }
 
-const PLAYER_COLORS = ['#ef4444', '#3b82f6', '#22c55e', '#f59e0b']
+const PLAYER_COLORS = ['#dc2626', '#2563eb', '#059669', '#ea580c']
+const PLAYER_COLORS_DARK = ['#991b1b', '#1e40af', '#047857', '#c2410c']
 
 export default function Edge({
   edge,
@@ -28,23 +29,37 @@ export default function Edge({
           y1={v1.y}
           x2={v2.x}
           y2={v2.y}
-          stroke="transparent"
-          strokeWidth={10}
-          className="hover:stroke-blue-200 hover:stroke-opacity-50 transition-all"
+          stroke="#3b82f6"
+          strokeWidth={8}
+          opacity={0.2}
+          className="hover:opacity-50 transition-all"
         />
       )}
 
       {/* Road */}
       {isOccupied && playerId !== undefined ? (
-        <line
-          x1={v1.x}
-          y1={v1.y}
-          x2={v2.x}
-          y2={v2.y}
-          stroke={PLAYER_COLORS[playerId]}
-          strokeWidth={5}
-          strokeLinecap="round"
-        />
+        <g style={{ filter: 'drop-shadow(0 2px 3px rgba(0,0,0,0.4))' }}>
+          {/* Road shadow/outline */}
+          <line
+            x1={v1.x}
+            y1={v1.y}
+            x2={v2.x}
+            y2={v2.y}
+            stroke={PLAYER_COLORS_DARK[playerId]}
+            strokeWidth={7}
+            strokeLinecap="round"
+          />
+          {/* Road main color */}
+          <line
+            x1={v1.x}
+            y1={v1.y}
+            x2={v2.x}
+            y2={v2.y}
+            stroke={PLAYER_COLORS[playerId]}
+            strokeWidth={6}
+            strokeLinecap="round"
+          />
+        </g>
       ) : (
         /* Empty edge marker (for debugging) */
         process.env.NODE_ENV === 'development' && (
@@ -53,9 +68,9 @@ export default function Edge({
             y1={v1.y}
             x2={v2.x}
             y2={v2.y}
-            stroke="#d1d5db"
+            stroke="#cbd5e1"
             strokeWidth={1}
-            opacity={0.3}
+            opacity={0.2}
           />
         )
       )}

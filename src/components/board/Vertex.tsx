@@ -10,7 +10,8 @@ interface VertexProps {
   rank?: number
 }
 
-const PLAYER_COLORS = ['#ef4444', '#3b82f6', '#22c55e', '#f59e0b']
+const PLAYER_COLORS = ['#dc2626', '#2563eb', '#059669', '#ea580c']
+const PLAYER_COLORS_LIGHT = ['#fca5a5', '#93c5fd', '#6ee7b7', '#fdba74']
 
 export default function Vertex({
   vertex,
@@ -34,9 +35,11 @@ export default function Vertex({
         <circle
           cx={pos.x}
           cy={pos.y}
-          r={12}
+          r={14}
           fill="transparent"
-          className="hover:fill-blue-200 hover:fill-opacity-50 transition-all"
+          className="hover:fill-blue-400 hover:fill-opacity-40 transition-all"
+          stroke="transparent"
+          strokeWidth={2}
         />
       )}
 
@@ -46,18 +49,30 @@ export default function Vertex({
           <circle
             cx={pos.x}
             cy={pos.y}
-            r={15}
+            r={16}
             fill="#fbbf24"
-            opacity={0.3}
+            opacity={0.4}
             className="animate-pulse"
+          />
+          <circle
+            cx={pos.x}
+            cy={pos.y}
+            r={13}
+            fill="none"
+            stroke="#f59e0b"
+            strokeWidth={2}
+            opacity={0.8}
           />
           {rank !== undefined && (
             <text
               x={pos.x}
-              y={pos.y - 20}
+              y={pos.y - 22}
               textAnchor="middle"
               className="text-sm font-bold"
-              fill="#d97706"
+              fill="#ffffff"
+              stroke="#92400e"
+              strokeWidth={0.5}
+              style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}
             >
               #{rank}
             </text>
@@ -67,7 +82,19 @@ export default function Vertex({
 
       {/* Settlement */}
       {isOccupied && playerId !== undefined && (
-        <g>
+        <g style={{ filter: 'drop-shadow(0 3px 4px rgba(0,0,0,0.4))' }}>
+          {/* Settlement base shadow */}
+          <polygon
+            points={`
+              ${pos.x},${pos.y - 9}
+              ${pos.x - 8},${pos.y - 2}
+              ${pos.x - 8},${pos.y + 9}
+              ${pos.x + 8},${pos.y + 9}
+              ${pos.x + 8},${pos.y - 2}
+            `}
+            fill={PLAYER_COLORS[playerId]}
+            opacity={0.3}
+          />
           {/* Settlement house shape */}
           <polygon
             points={`
@@ -79,18 +106,39 @@ export default function Vertex({
             `}
             fill={PLAYER_COLORS[playerId]}
             stroke="#1f2937"
-            strokeWidth={1.5}
+            strokeWidth={2}
+          />
+          {/* Highlight on house */}
+          <polygon
+            points={`
+              ${pos.x - 1},${pos.y - 9}
+              ${pos.x - 7},${pos.y - 2}
+              ${pos.x - 7},${pos.y + 4}
+              ${pos.x - 1},${pos.y - 2}
+            `}
+            fill={PLAYER_COLORS_LIGHT[playerId]}
+            opacity={0.5}
           />
           {/* Roof */}
           <polygon
             points={`
-              ${pos.x},${pos.y - 15}
+              ${pos.x},${pos.y - 16}
               ${pos.x - 10},${pos.y - 3}
               ${pos.x + 10},${pos.y - 3}
             `}
             fill={PLAYER_COLORS[playerId]}
             stroke="#1f2937"
-            strokeWidth={1.5}
+            strokeWidth={2}
+          />
+          {/* Roof highlight */}
+          <polygon
+            points={`
+              ${pos.x},${pos.y - 16}
+              ${pos.x - 10},${pos.y - 3}
+              ${pos.x - 3},${pos.y - 6}
+            `}
+            fill={PLAYER_COLORS_LIGHT[playerId]}
+            opacity={0.4}
           />
         </g>
       )}
